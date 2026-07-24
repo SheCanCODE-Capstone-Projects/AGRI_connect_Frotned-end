@@ -8,22 +8,13 @@ import ThemeToggle from "@/components/layout/ThemeToggle";
 import { useLanguage } from "@/lib/LanguageContext";
 import { isAuthenticated, signOut } from "@/lib/auth";
 
-/* ── Map routes → readable breadcrumb names ── */
-const BREADCRUMB_MAP: Record<string, string> = {
-  "/dashboard":          "Dashboard",
-  "/inventory":          "Inventory",
-  "/cooperative/products": "My Products",
-  "/orders":             "Orders",
-  "/buyers":             "Buyers",
-  "/members":            "Members & SMS",
-  "/reports":            "Reports",
-};
+
 
 export default function CooperativeLayout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const { locale, toggleLocale } = useLanguage();
+  const { locale, t, toggleLocale } = useLanguage();
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -34,10 +25,22 @@ export default function CooperativeLayout({ children }: { children: React.ReactN
     }
   }, [router]);
 
+  /* ── Map routes → readable breadcrumb names ── */
+  const BREADCRUMB_MAP: Record<string, string> = {
+    "/dashboard":          t.dashboard.title,
+    "/inventory":          t.inventory.title,
+    "/cooperative/products": t.productsBoard.title,
+    "/orders":             t.orders.title,
+    "/buyers":             t.buyers.title,
+    "/members":            t.members.title,
+    "/reports":            t.dashboard.sidebarReports,
+    "/settings":           t.settings.title,
+  };
+
   const pageTitle =
     Object.entries(BREADCRUMB_MAP).find(([route]) =>
       pathname?.startsWith(route)
-    )?.[1] ?? "Dashboard";
+    )?.[1] ?? t.dashboard.title;
 
   if (!authenticated) {
     return <div className="min-h-screen bg-gray-100 dark:bg-[#081F14]" aria-busy="true" />;
@@ -79,7 +82,7 @@ export default function CooperativeLayout({ children }: { children: React.ReactN
 
           {/* Breadcrumb */}
           <div className="hidden items-center gap-1.5 sm:flex">
-            <span className="text-xs text-gray-400 dark:text-green-100/50">Cooperative</span>
+            <span className="text-xs text-gray-400 dark:text-green-100/50">{t.dashboard.sidebarCooperative}</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400">
               <path d="M9 18l6-6-6-6" />
             </svg>
@@ -135,7 +138,7 @@ export default function CooperativeLayout({ children }: { children: React.ReactN
               <polyline points="16 17 21 12 16 7" />
               <line x1="21" y1="12" x2="9" y2="12" />
             </svg>
-            <span className="hidden sm:inline">Exit</span>
+            <span className="hidden sm:inline">{t.dashboard.exit}</span>
           </button>
         </div>
       </header>

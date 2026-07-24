@@ -1,27 +1,85 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/lib/LanguageContext";
 
+const HERO_IMAGES = [
+  {
+    src: "/images/hero-bg.png",
+    alt: "Lush green agricultural field in Rwanda",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=2000&auto=format&fit=crop",
+    alt: "Lush terraced agricultural farm and tea plantation hills",
+  },
+];
+
 export default function Hero() {
   const { t } = useLanguage();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 6000); // Switch image every 6 seconds
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
-      {/* ── Background image ── */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/hero-bg.png"
-          alt="Lush green agricultural field in Rwanda"
-          fill
-          className="object-cover"
-          priority
-          quality={90}
-        />
+      {/* ── Background images with animated crossfade & Terra-style Ken Burns pan ── */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {HERO_IMAGES.map((img, index) => {
+          const isActive = index === currentImageIndex;
+          return (
+            <div
+              key={img.src}
+              className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
+                isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+              }`}
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                className={`object-cover transition-all duration-[6500ms] ease-linear ${
+                  isActive
+                    ? index % 2 === 0
+                      ? "scale-115 translate-x-2 -translate-y-2"
+                      : "scale-115 -translate-x-2 translate-y-2"
+                    : "scale-100 translate-x-0 translate-y-0"
+                }`}
+                priority={index === 0}
+                quality={90}
+              />
+            </div>
+          );
+        })}
 
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/25" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/25 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 z-10" />
+
+        {/* Terra-style Slide Progress & Navigation */}
+        <div className="absolute bottom-8 right-8 z-20 flex items-center gap-3">
+          {HERO_IMAGES.map((_, index) => {
+            const isActive = index === currentImageIndex;
+            return (
+              <button
+                key={index}
+                onClick={() => setCurrentImageIndex(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                className="relative h-1.5 w-12 overflow-hidden rounded-full bg-white/30 transition-all duration-300 hover:bg-white/50"
+              >
+                {isActive && (
+                  <div className="h-full bg-brand-500 animate-[progress_6s_linear_forwards]" />
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* ── Content ── */}

@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "@/lib/LanguageContext";
+import { getCurrentAccount, Account } from "@/lib/auth";
 
 type SidebarProps = {
   onClose?: () => void;
@@ -75,6 +77,11 @@ export default function Sidebar({ onClose }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const { t } = useLanguage();
+  const [account, setAccount] = useState<Account | null>(null);
+
+  useEffect(() => {
+    setAccount(getCurrentAccount());
+  }, []);
 
   const navItems = [
     { name: t.dashboard.sidebarDashboard, href: "/dashboard", icon: icons.dashboard },
@@ -82,7 +89,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
     { name: t.dashboard.sidebarProducts, href: "/cooperative/products", icon: icons.products },
     { name: t.dashboard.sidebarOrders, href: "/orders", icon: icons.orders },
     { name: t.dashboard.sidebarBuyers, href: "/buyers", icon: icons.buyers },
-    { name: "Members & SMS", href: "/members", icon: icons.members },
+    { name: t.members.title, href: "/members", icon: icons.members },
     { name: t.dashboard.sidebarReports, href: "/reports", icon: icons.reports },
   ];
 
@@ -99,10 +106,19 @@ export default function Sidebar({ onClose }: SidebarProps) {
         <div className="flex items-center gap-3">
           {/* Avatar */}
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-green-500 to-green-700 text-base font-black shadow-lg shadow-green-900/50">
-            GV
+            {account?.cooperativeName
+              ? account.cooperativeName
+                  .split(" ")
+                  .slice(0, 2)
+                  .map((word) => word[0])
+                  .join("")
+                  .toUpperCase()
+              : "GV"}
           </div>
           <div className="min-w-0">
-            <p className="truncate text-sm font-bold text-white">Green Valley Coop</p>
+            <p className="truncate text-sm font-bold text-white">
+              {account?.cooperativeName || "Green Valley Coop"}
+            </p>
             <p className="text-[11px] text-green-100/60">{t.dashboard.sidebarCooperative}</p>
           </div>
         </div>
@@ -117,7 +133,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
       {/* ── Navigation items ── */}
       <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-3">
         <p className="mb-2 px-2 text-[10px] font-semibold uppercase tracking-widest text-green-100/30">
-          Main Menu
+          {t.dashboard.mainMenu}
         </p>
         {navItems.map((item) => {
           const isActive = pathname?.startsWith(item.href);
@@ -148,15 +164,19 @@ export default function Sidebar({ onClose }: SidebarProps) {
       <div className="border-t border-white/10 px-3 py-3 space-y-1">
         {/* Settings */}
         <Link
-          href="/cooperative"
+          href="/settings"
           onClick={onClose}
-          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-green-100/60 transition hover:bg-white/5 hover:text-white"
+          className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+            pathname?.startsWith("/settings")
+              ? "bg-green-600 text-white shadow-md shadow-green-900/40"
+              : "text-green-100/60 hover:bg-white/5 hover:text-white"
+          }`}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="12" cy="12" r="3" />
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
           </svg>
-          Settings
+          {t.dashboard.settings}
         </Link>
 
         {/* Logout */}
@@ -165,7 +185,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
           className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-red-400/80 transition hover:bg-red-500/10 hover:text-red-400"
         >
           {icons.logout}
-          Log Out
+          {t.dashboard.logout}
         </button>
       </div>
     </aside>

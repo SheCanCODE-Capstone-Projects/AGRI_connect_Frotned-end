@@ -30,7 +30,7 @@ export default function DashboardPage() {
             </div>
             <h2 className="mt-2 text-xl font-bold sm:text-2xl">Green Valley Cooperative</h2>
             <p className="mt-1 text-sm text-green-100/70">
-              You have <span className="font-semibold text-amber-400">4 {t.dashboard.urgentRequests}</span> {t.dashboard.requestsPending}.
+              {t.dashboard.youHave} <span className="font-semibold text-amber-400">4 {t.dashboard.urgentRequests}</span> {t.dashboard.requestsPending}.
             </p>
           </div>
           <div className="shrink-0 text-left sm:text-right">

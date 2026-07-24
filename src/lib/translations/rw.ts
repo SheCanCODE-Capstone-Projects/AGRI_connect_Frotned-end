@@ -2,7 +2,6 @@ import type { Translations } from "./en";
 
 // Kinyarwanda translations
 const rw: Translations = {
-  // Navbar
   nav: {
     home: "Ahabanza",
     about: "Abo Turibo",
@@ -12,7 +11,6 @@ const rw: Translations = {
     appearance: "Isura",
   },
 
-  // Hero
   hero: {
     badge: "Isoko rinini ry'Ubuhinzi mu Rwanda #1",
     headline1: "Guhuza Abahinzi",
@@ -23,131 +21,76 @@ const rw: Translations = {
     joinCooperative: "Injira mu Koperative",
   },
 
-  // Why Choose Us
   whyChoose: {
     heading: "Kuki Wahitamo AgriConnect?",
     subheading: "Yakozwe ku bahinzi n'abashoramari b'Abanyarwanda.",
     features: [
-      {
-        title: "Amakoperative Yemejwe",
-        description:
-          "Buri koperative yanditswe na leta kandi isuzumwa ubukiri mbere yo gutangazwa.",
-      },
-      {
-        title: "Igiciro cy'Ukuri",
-        description:
-          "Nta ba ruhuriwe. Abahinzi bashyiraho ibiciro by'ukuri, abashoramari babone amasezerano atarimo ibinyoma.",
-      },
-      {
-        title: "Inkunga y'Ikinyarwanda",
-        description:
-          "Urubuga rwuzuye rushyigikira Ikinyarwanda n'Icyongereza ku bakoresha bose.",
-      },
-      {
-        title: "Gutanga ku Gihugu Cyose",
-        description:
-          "Umumaro w'imfashanyigisho mu turere twose 30 tw'u Rwanda.",
-      },
+      { title: "Amakoperative Yemejwe", description: "Buri koperative yanditswe na leta kandi isuzumwa ubukiri mbere yo gutangazwa." },
+      { title: "Igiciro cy'Ukuri", description: "Nta ba ruhuriwe. Abahinzi bashyiraho ibiciro by'ukuri, abashoramari babone amasezerano atarimo ibinyoma." },
+      { title: "Inkunga y'Ikinyarwanda", description: "Urubuga rwuzuye rushyigikira Ikinyarwanda n'Icyongereza ku bakoresha bose." },
+      { title: "Gutanga ku Gihugu Cyose", description: "Umumaro w'imfashanyigisho mu turere twose 30 tw'u Rwanda." },
     ],
   },
 
-  // Featured Products
   featuredProducts: {
     heading: "Ibihingwa bishya",
     subheading: "Ibicuruzwa by'ireme byatoranyijwe mu makoperative yacu yizwi.",
     viewAll: "Reba Ibicuruzwa Byose",
   },
 
-  // CTA
   cta: {
     heading: "Witeguye kuzana koperative yawe kuri interineti?",
-    description:
-      "Injira mu gihe cy'abahinzi b'Abanyarwanda ibihumbi barenga bashoramari kuri AgriConnect. Kwiyandikisha biratangwa ubuntu.",
+    description: "Injira mu gihe cy'abahinzi b'Abanyarwanda ibihumbi barenga bashoramari kuri AgriConnect. Kwiyandikisha biratangwa ubuntu.",
     register: "Andikisha Koperative Yawe",
     learnMore: "Menya Byinshi",
   },
 
-  // About page
   about: {
     badge: "Abo Turibo",
     heading: "Abo Turi Bo",
-    description:
-      "AgriConnect Rwanda ni urubuga rwa dijitali rw'ubuhinzi / isoko yakozwe guhuza abahinzi n'abashoramari. Dufasha kuziba inkombe iri hagati y'amakoperative n'amasoko.",
+    description: "AgriConnect Rwanda ni urubuga rwa dijitali rw'ubuhinzi / isoko yakozwe guhuza abahinzi n'abashoramari. Dufasha kuziba inkombe iri hagati y'amakoperative n'amasoko.",
     empoweringTitle: "Gukomeza Amakoperative",
-    empoweringDesc:
-      "Dushyigikira amatsinda y'abahinzi mu gushyiraho imiterere no kugera ku mahirwe mashya y'isoko.",
+    empoweringDesc: "Dushyigikira amatsinda y'abahinzi mu gushyiraho imiterere no kugera ku mahirwe mashya y'isoko.",
     buildingTitle: "Kubaka Itsinda",
-    buildingDesc:
-      "Gufasha abahinzi n'abashoramari kubaka ubufatanye burambye n'icyizere mu iterambere.",
-
+    buildingDesc: "Gufasha abahinzi n'abashoramari kubaka ubufatanye burambye n'icyizere mu iterambere.",
     missionBadge: "Intego Yacu",
     missionHeading: "Inshingano n'Icyerekezo",
     mission: "Inshingano Yacu",
-    missionText:
-      "Gukomeza amakoperative y'abahinzi b'Abanyarwanda mu kubahuza n'amasoko, ikoranabuhanga, uburamburane, n'imiyoboro y'agaciro irambye.",
+    missionText: "Gukomeza amakoperative y'abahinzi b'Abanyarwanda mu kubahuza n'amasoko, ikoranabuhanga, uburamburane, n'imiyoboro y'agaciro irambye.",
     vision: "Icyerekezo Cyacu",
-    visionText:
-      "Iterambere ry'ubuhinzi bwa dijitali aho buri muhinzi w'Umunyarwanda na buri mushoramari bashoboye gucuruza neza, byoroheje, kandi mu mutekano.",
-
+    visionText: "Iterambere ry'ubuhinzi bwa dijitali aho buri muhinzi w'Umunyarwanda na buri mushoramari bashoboye gucuruza neza, byoroheje, kandi mu mutekano.",
     processBadge: "Inzira",
     processHeading: "Uburyo Duhuza Ubuhinzi",
     processSteps: [
-      {
-        title: "Kwiyandikisha k'Amakoperative",
-        description: "Amakoperative y'abahinzi akora umwirondoro wemejwe kandi ashyira ibicuruzwa byabo by'ubuhinzi ku rubuga.",
-      },
-      {
-        title: "Ibicuruzwa Biraboneka",
-        description: "Abaguzi bashakisha umusaruro mwiza, bagereranya ibiciro, kandi bagashaka amakoperative ahuye n'ibyo bakeneye.",
-      },
-      {
-        title: "Guhuza Ako Kanya",
-        description: "Dukuraho abamamyi kugira ngo abahinzi binjize menshi kandi abaguzi babone umusaruro mwiza ku giciro cyiza.",
-      },
-      {
-        title: "Ubufatanye Burakura",
-        description: "Umubano w'igihe kirekire hagati y'amakoperative n'abaguzi uteza imbere ubucuruzi bw'ubuhinzi burambye.",
-      }
+      { title: "Kwiyandikisha k'Amakoperative", description: "Amakoperative y'abahinzi akora umwirondoro wemejwe kandi ashyira ibicuruzwa byabo by'ubuhinzi ku rubuga." },
+      { title: "Ibicuruzwa Biraboneka", description: "Abaguzi bashakisha umusaruro mwiza, bagereranya ibiciro, kandi bagashaka amakoperative ahuye n'ibyo bakeneye." },
+      { title: "Guhuza Ako Kanya", description: "Dukuraho abamamyi kugira ngo abahinzi binjize menshi kandi abaguzi babone umusaruro mwiza ku giciro cyiza." },
+      { title: "Ubufatanye Burakura", description: "Umubano w'igihe kirekire hagati y'amakoperative n'abaguzi uteza imbere ubucuruzi bw'ubuhinzi burambye." },
     ],
-
     valueBadge: "Agaciro Kacu",
     valueHeading: "Kuki Wahitamo AgriConnect?",
-
     impactBadge: "Ingaruka Zacu",
     impactHeading: "Twiyongera Hamwe mu Rwanda Rwose",
     stats: [
       { label: "Amakoperative Yahujwe" },
       { label: "Ibicuruzwa by'Ubuhinzi" },
       { label: "Abaguzi" },
-      { label: "Uturere Twagezweho" }
+      { label: "Uturere Twagezweho" },
     ],
-
     communityBadge: "Umuryango",
     communityHeading: "Sobanukirwa n'Umuryango",
     community: [
-      {
-        role: "Abahinzi",
-        description: "Gufasha abahinzi kongera umusaruro no kwinjiza menshi",
-      },
-      {
-        role: "Amakoperative",
-        description: "Gufasha amakoperative kugera ku masoko y'igihugu",
-      },
-      {
-        role: "Abaguzi",
-        description: "Guhuza abaguzi n'umusaruro mwiza w'u Rwanda",
-      }
+      { role: "Abahinzi", description: "Gufasha abahinzi kongera umusaruro no kwinjiza menshi" },
+      { role: "Amakoperative", description: "Gufasha amakoperative kugera ku masoko y'igihugu" },
+      { role: "Abaguzi", description: "Guhuza abaguzi n'umusaruro mwiza w'u Rwanda" },
     ],
-
     ctaBadge: "Tangira",
     ctaHeading: "Injira mu Iterambere ry'Ubuhinzi",
-    ctaDesc:
-      "Niba uri koperative ishakisha amasoko mashya cyangwa mushoramari ushaka abatera inkunga bashobora kwizigwa, AgriConnect ikuganira mu guhuza ubuhinzi.",
+    ctaDesc: "Niba uri koperative ishakisha amasoko mashya cyangwa mushoramari ushaka abatera inkunga bashobora kwizigwa, AgriConnect ikuganira mu guhuza ubuhinzi.",
     ctaJoin: "Injira AgriConnect",
     ctaExplore: "Reba Ibicuruzwa",
   },
 
-  // Products Page
   productsPage: {
     title: "Ibicuruzwa Byose",
     subtitle: "Ibicuruzwa byemejwe bituruka mu makoperative yo mu turere 30 tw'u Rwanda.",
@@ -155,7 +98,6 @@ const rw: Translations = {
     allCategories: "Ibyiciro Byose",
   },
 
-  // Product Detail
   productDetail: {
     backToProducts: "Subira ku Bicurezwa",
     availableQuantity: "Ingano Ihari",
@@ -165,13 +107,11 @@ const rw: Translations = {
     contactCooperative: "Vugana na Koperative",
   },
 
-  // Product Grid
   productGrid: {
     viewDetails: "Reba Ibisobanuro",
     noProducts: "Nta bicuruzwa byabonetse bihuye n'ibyo ushakisha.",
   },
 
-  // Login Page
   login: {
     title: "AgriConnect",
     subtitle: "Rwanda",
@@ -182,7 +122,7 @@ const rw: Translations = {
       "Gucunga komande n'ububiko mu gihe nyacyo",
       "Kwishyura umutekano ukoresheje Mobile Money (MTN, Airtel)",
       "Icyemezo cy'ubuziranenge gishyigikiwe na Leta",
-      "Gushyigikirwa mu Kinyarwanda n'Icyongereza"
+      "Gushyigikirwa mu Kinyarwanda n'Icyongereza",
     ],
     formTitle: "Kwinjira kwa Koperative",
     formSubtitle: "Injira mu kibaho cya koperative yawe",
@@ -198,32 +138,31 @@ const rw: Translations = {
     register: "Andikisha koperative yawe",
   },
 
-  // Dashboard Page
   dashboard: {
     portal: "Urubuga rwa Koperative rwa AgriConnect",
     title: "Ikibaho",
     home: "Ahabanza",
     welcomeBack: "MURAHO NEZA",
-    urgentRequests: "zihutirwa",
-    requestsPending: "zitegereje gusuzumwa uyu munsi",
+    youHave: "Ufite ibintu",
+    urgentRequests: "bihutirwa",
+    requestsPending: "byitegerejwe gusuzumwa uyu munsi",
     monthlyRevenue: "Akinjizwa mu Kwezi",
     august: "Kanama 2025",
-    // Stats Card labels
     totalProducts: "Ibicuruzwa Byose",
     inventoryAvailable: "Ububiko Buhari",
     newRequests: "Ibisabwa Bishya",
     monthlyRevenueStat: "Akinjizwa mu Kwezi",
     pendingDeliveries: "Ibigenewe Gutangwa",
-    // Stats trends
     trendUp: "+3 iki cyumweru",
     trendDown: "-1 iteganijwe",
-    // RevenueChart
+    trendInStock: "Ibiboneka mu bubiko",
+    trendPending: "Ibitegerejwe",
+    trendUpdatedFromBuyers: "Ibivuye ku baguzi",
+    trendScheduled: "ibiteganijwe",
     revenueChartTitle: "Akinjizwa mu Kwezi (RWF)",
     revenueChartPeriod: "Kanama 2024 — Mutarama 2025",
-    // BuyerMatchCard
     smartBuyerMatching: "Guhuza Abashoramari mu Buryo Bwiza",
     viewAllMatches: "Reba ibihuye byose →",
-    // Sidebar
     sidebarDashboard: "Ikibaho",
     sidebarInventory: "Ububiko",
     sidebarProducts: "Ibicuruzwa",
@@ -231,30 +170,110 @@ const rw: Translations = {
     sidebarBuyers: "Abashoramari",
     sidebarReports: "Raporo",
     sidebarCooperative: "Koperative",
+    mainMenu: "IBIKUBIYEMO",
+    settings: "Igenamiterere",
+    logout: "Sohoka",
+    exit: "Sohoka",
   },
 
-  // Inventory Page
+  productsBoard: {
+    subtitle: "Gucunga no gutangaza ibicuruzwa by'ubuhinzi",
+    title: "Ibicuruzwa",
+    addProduct: "+ Ongeraho Igicuruzwa",
+    defaultMessage: "Reba igicuruzwa cyangwa gitangaze kugira ngo ubone uko imiterere ihinduka hano.",
+    previewing: "Ureba",
+    nowPublished: "uratangazwa",
+    nowDraft: "ni Inzira",
+    addedSuccess: "wongewemo neza",
+    statusHealthy: "Byiza",
+    statusLow: "Buke",
+    statusOut: "Byarangiye",
+    available: "Iboneka:",
+    preview: "Reba",
+    published: "Yatangazwe",
+    publish: "Tangaza",
+    livePreview: "Kureba Mbere",
+    livePreviewDesc: "Reba igicuruzwa cyahiswemo mbere yo gutangaza.",
+    productName: "Izina ry'Igicuruzwa",
+    category: "Icyiciro",
+    description: "Ibisobanuro",
+    noDescription: "Nta bisobanuro bihari.",
+    price: "Igiciro",
+    availableQuantity: "Ingano Iboneka",
+    publishingStatus: "Imiterere yo Gutangaza",
+    draft: "Inzira",
+    addModalTitle: "Ongeraho Igicuruzwa",
+    addModalImage: "Ifoto y'Igicuruzwa",
+    addModalImagePlaceholder: "Kanda hano gushyira ifoto",
+    addModalProductName: "Izina ry'Igicuruzwa",
+    addModalCategory: "Icyiciro",
+    addModalPrice: "Igiciro",
+    addModalQuantity: "Ingano",
+    addModalStatus: "Imiterere",
+    addModalDescription: "Ibisobanuro",
+    addModalDescriptionPlaceholder: "Andika ibisobanuro bigufi...",
+    addModalCancel: "Reka",
+    addModalSave: "Bika Igicuruzwa",
+    addModalRequiredError: "Uzuza imirima yose irakenewe.",
+  },
+
   inventory: {
     title: "Ububiko",
-    subtitle: "Gucunga ibicuruzwa byawe",
-    home: "Ahabanza",
+    subtitle: "Gucunga ububiko bwa koperative yawe",
+    addProduct: "+ Ongeraho Igicuruzwa",
+    noInventory: "Nta bubiko bwabonetse.",
+    totalProducts: "Ibicuruzwa Byose",
     healthy: "Byiza",
     lowStock: "Ububiko Buke",
-    out: "Byarangiye",
-    infoBanner: "Guhindura ni igikorwa kizima. Kanda kugirango uhindure imiterere y'igicuruzwa n'igihe cyahindutse.",
-    currentStock: "Ububiko Buriho",
-    available: "Iboneka",
-    lastUpdated: "Byahinduwe",
+    outOfStock: "Byarangiye",
     product: "Igicuruzwa",
     category: "Icyiciro",
+    stock: "Ububiko",
+    available: "Iboneka",
     status: "Imiterere",
-    action: "Igikorwa",
-    update: "Hindura",
-    selectedStockItem: "Igicuruzwa Cyahiswemo",
-    selectedDescription: "Guhindura kwerekana neza igicuruzwa cyahindutse n'igihe cyakoreshejwe.",
+    updated: "Byahinduwe",
+    actions: "Ibikorwa",
+    edit: "Hindura",
+    update: "Vugurura",
+    delete: "Siba",
+    editStock: "Hindura Ububiko",
+    refresh: "Vugurura",
+    totalStock: "Ububiko Bwose",
+    stockRemaining: "Ububiko Busigaye",
+    lastUpdated: "Byahinduwe",
+    selectedProduct: "Igicuruzwa Cyahiswemo",
+    selectedDescription: "Amakuru y'igicuruzwa cyahiswemo mu bubiko.",
+    searchPlaceholder: "Shakisha igicuruzwa cyangwa icyiciro...",
+    allCategories: "Ibyiciro Byose",
+    allStatus: "Imiterere Yose",
+    categoryGrains: "Impeke",
+    categoryVegetables: "Imboga",
+    categoryLegumes: "Ibiharage",
+    categoryRootVeg: "Imbuto z'Inzizi",
+    statusHealthy: "Byiza",
+    statusLow: "Ububiko Buke",
+    statusOut: "Byarangiye",
+    addModalTitle: "Ongeraho igicuruzwa mu bubiko",
+    addModalProductName: "Izina ry'igicuruzwa",
+    addModalCategory: "Icyiciro",
+    addModalTotalStock: "Ububiko bwose (kg)",
+    addModalAvailableStock: "Ububiko buboneka (kg)",
+    addModalCancel: "Reka",
+    addModalSubmit: "Ongeraho igicuruzwa",
+    addModalErrorEmpty: "Injiza izina ry'igicuruzwa, ububiko bwose, n'ububiko buboneka.",
+    addModalErrorInvalid: "Imibare y'ububiko igomba kuba mibare yemewe yanduye.",
+    addModalErrorExceeds: "Ububiko buboneka ntibusha kuruta ububiko bwose.",
+    updateModalTitle: "Vugurura Ububiko",
+    updateModalProduct: "Igicuruzwa",
+    updateModalTotalStock: "Ububiko Bwose (kg)",
+    updateModalAvailableStock: "Ububiko Buboneka (kg)",
+    updateModalCancel: "Reka",
+    updateModalSave: "Zachika Impinduka",
+    updateModalErrorInvalid: "Injiza imibare yemewe mu mirima yombi y'ububiko.",
+    updateModalErrorNegative: "Imibare ntishobora kuba iri munsi ya zeru.",
+    updateModalErrorExceeds: "Ububiko buboneka ntibusha kuruta ububiko bwose.",
   },
 
-  // Register Page
   register: {
     badge: "KONTI YA KOPERATIVE",
     title: "Andikisha koperative yawe",
@@ -301,7 +320,6 @@ const rw: Translations = {
     loginLink: "Injira muri koperative yawe",
   },
 
-  // Forgot Password Page
   forgotPassword: {
     home: "← Ahabanza",
     title: "Hindura ijambo ry'ibanga",
@@ -329,7 +347,6 @@ const rw: Translations = {
     backToLogin: "Subira ku kwinjira",
   },
 
-  // Footer
   footer: {
     description: "Urubuga rwizewe rwo guhuza amakoperative y'abahinzi n'amasoko mu Rwanda.",
     stayUpdated: "MENYA AMAKURU MASHYA Y'UMUSARURO",
@@ -349,15 +366,16 @@ const rw: Translations = {
     madeWith: "Byakorewe mu Rwanda",
     currency: "Ifaranga:",
   },
-  // Product Names translations
+
   categories: {
     "All Categories": "Ibyiciro Byose",
     "Vegetables": "Imboga",
     "Fruits": "Imbuto",
     "Coffee": "Ikawa",
     "Grains": "Impeke",
-    "Dairy": "Amata"
+    "Dairy": "Amata",
   },
+
   productNames: {
     "Sweet Potatoes": "Ibijumba",
     "Arabica Coffee Beans": "Kafe",
@@ -365,19 +383,215 @@ const rw: Translations = {
     "Banana Bunches": "Ibitoki",
     "Irish Potatoes": "Ibirayi",
     "Green Beans": "Ibishimbo",
-    "Sorghum": "Soya",
+    "Sorghum": "Amasaka",
     "Fresh Milk": "Amata Mashya",
-    "Mangoes": "Imwembe"
+    "Mangoes": "Imwembe",
+    "Soya Beans": "Soya",
+    "Maize": "Ibigori",
+    "Avocado": "Avoka",
+    "Cabbages": "Amashu",
+    "Green Eggplant": "Intoryi",
+    "Farm Fresh Vegetables": "Imboga Nshya zo ku Murima",
+    "Organic Harvest Pack": "Imyunyu y'Umusaruro Kamere",
+    "Seasonal Fruit Basket": "Agaseke k'Imbuto z'Igihe",
+    "Premium Beans": "Ibishimbo by'Ireme",
+    "White Rice": "Umuceli Mwiza",
+    "Green Cabbage": "Amashu",
+    "Maize Flour": "Ufu w'Ibigori",
+    "Tomatoes": "Inyanya",
   },
-  // UI label for product name
-  productDetail: {
-    productName: "Izina ry'Ibicuruzwa",
-    backToProducts: "Subira ku Bicurezwa",
-    availableQuantity: "Ingano Ihari",
-    unitPrice: "Igiciro",
-    district: "Akarere",
-    postedOn: "Byashyizweho",
-    contactCooperative: "Vugana na Koperative"
+
+  inventoryCategories: {
+    "Legumes": "Ibiharage",
+    "Grains": "Impeke",
+    "Root Veg": "Imbuto z'Inzizi",
+    "Vegetables": "Imboga",
+  },
+
+  // Orders Page
+  orders: {
+    title: "Ibisabwa",
+    subtitle: "Kurikirana gutangwa kw'ibisabwa uhereye kwemera kugeza gutangwa",
+    searchPlaceholder: "Shakisha ibisabwa...",
+    // Stats
+    statTotal: "Byose",
+    statPreparing: "Bitegurwa",
+    statDispatched: "Byoherejwe",
+    statDelivered: "Byatanzwe",
+    // Filter options
+    filterAll: "Byose",
+    filterPreparing: "Bitegurwa",
+    filterDispatched: "Byoherejwe",
+    filterDelivered: "Byatanzwe",
+    // Status badges
+    statusPreparing: "Bitegurwa",
+    statusDispatched: "Byoherejwe",
+    statusDelivered: "Byatanzwe",
+    // Order card actions
+    invoice: "Inyemeza",
+    track: "Kurikirana",
+    noOrders: "Nta bisabwa bihuye n'ushakisha no gusuzuma imiterere.",
+    // Detail panel
+    invoicePreview: "Reba Inyemeza",
+    trackingDetails: "Ibisobanuro byo Kurikirana",
+    labelOrder: "Isabwa",
+    labelBuyer: "Umushoramari",
+    labelAmount: "Amafaranga",
+    labelOrderTotal: "Igiteranyo cy'isabwa",
+    labelItem: "Igicuruzwa",
+    labelInvoiceStatus: "Imiterere y'inyemeza",
+    labelCurrentStage: "INTAMBWE IRI HAFI",
+    // Order progress step labels
+    stepPending: "Ibitegerejwe",
+    stepAccepted: "Byemewe",
+    stepPreparing: "Byateguwe",
+    stepDispatched: "Byoherejwe",
+    stepDelivered: "Byatanzwe",
+  },
+
+  // Buyers Page
+  buyers: {
+    title: "Abashoramari",
+    subtitle: "Kurikirana imishyikirano n'abashoramari n'amateka y'ingurane",
+    addBuyer: "+ Ongeraho Umushoramari",
+    noBuyers: "Nta bashoramari babonetse.",
+    // Stats
+    statTotalBuyers: "Abashoramari Bose",
+    statTotalBuyersDesc: "Biyandikishije",
+    statActiveBuyers: "Abashoramari Bakora",
+    statActiveBuyersDesc: "Bakora ubu",
+    statTotalOrders: "Ibisabwa Byose",
+    statTotalOrdersDesc: "Ibisabwa byarangiye",
+    statReliability: "Icyizere",
+    statReliabilityDesc: "Amanota averaje",
+    // Search & filter
+    searchPlaceholder: "Shakisha abashoramari...",
+    filterAll: "Abashoramari Bose",
+    filterActive: "Bakora",
+    filterInactive: "Ntibakora",
+    // Card labels
+    orders: "Ibisabwa",
+    spending: "Amafaranga",
+    reliability: "Icyizere",
+    statusActive: "Akora",
+    statusInactive: "Ntakora",
+    reliabilityExcellent: "Bidasubirwaho",
+    reliabilityGood: "Byiza",
+    reliabilityNeedsAttention: "Bisaba uburire",
+    // Buttons
+    history: "Amateka",
+    edit: "Hindura",
+    delete: "Siba",
+    // Add/Edit modal
+    addModalTitle: "Ongeraho Umushoramari Mushya",
+    editModalTitle: "Hindura Umushoramari",
+    placeholderName: "Izina ry'umushoramari",
+    placeholderLocation: "Aho atuye",
+    placeholderOrders: "Ibisabwa",
+    placeholderSpend: "Amafaranga yishyuwe",
+    placeholderReliability: "Icyizere %",
+    saveChanges: "Zachika Impinduka",
+    addBuyerBtn: "Ongeraho Umushoramari",
+    // Details modal
+    detailsTitle: "Amakuru y'Umushoramari",
+    detailsStatus: "Imiterere",
+    detailsTotalOrders: "Ibisabwa Byose",
+    detailsTotalSpending: "Amafaranga Yose Yishyuwe",
+    detailsReliability: "Icyizere",
+    detailsRecentOrders: "Ibisabwa Biheruka",
+  },
+
+  // Members & SMS Page
+  members: {
+    title: "Abanyamuryango & SMS",
+    subtitle: "Gucunga abahinzi no kohereza ubutumwa — bikoreshwa na telefone isanzwe",
+    addMember: "+ Ongeraho Umunyamuryango",
+    noMembers: "Nta nyamuryango uhuye n'ushakisha.",
+    searchPlaceholder: "Shakisha umunyamuryango, umudugudu, ibihingwa...",
+    sendSms: "Ohereza SMS",
+    // Status
+    statusActive: "Akora",
+    statusPending: "Ategereje",
+    statusInactive: "Ntakora",
+    // Add modal
+    addModalTitle: "Ongeraho Umunyamuryango Mushya",
+    placeholderName: "Izina ry'umunyamuryango",
+    placeholderPhone: "Nomero ya terefone (+250...)",
+    placeholderVillage: "Umudugudu",
+    placeholderCrop: "Igihingwa cyangwa umusaruro",
+    addModalCancel: "Reka",
+    addModalSave: "Ongeraho Umunyamuryango",
+    // Broadcast panel
+    broadcastTitle: "Itangazo",
+    broadcastAudience: "ABAGENEWE",
+    broadcastAudienceAll: "Abanyamuryango bose",
+    broadcastAudienceActive: "Abakora",
+    broadcastAudiencePending: "Abategereje",
+    broadcastAudienceInactive: "Ntibakora",
+    broadcastChannel: "INZIRA",
+    broadcastMessage: "UBUTUMWA",
+    broadcastPlaceholder: "Andika ubutumwa bwo kohereza...",
+    broadcastChars: "inyuguti · bagezeho",
+    broadcastMember: "umunyamuryango",
+    broadcastMembers: "abanyamuryango",
+    broadcastSend: "⌁ Ohereza itangazo",
+    broadcastNote: "SMS n'Ijwi biregezeho abahinzi bafite telefone isanzwe — nta terefone ngombwa.",
+    broadcastSent: "yoherejwe kuri",
+    memberAdded: "yongeweho nk'umunyamuryango.",
+    voice: "Ijwi",
+  },
+
+  // Settings Page
+  settings: {
+    title: "Igenamiterere",
+    subtitle: "Cunga amakuru n'imiterere bya koperative yawe",
+    profileSection: "Umwirondoro wa Koperative",
+    coopName: "Izina rya Koperative",
+    coopNamePlaceholder: "Urugero: Green Valley Coop",
+    location: "Aho Iherereye",
+    locationPlaceholder: "Urugero: Musanze District",
+    contactEmail: "Imeri",
+    contactPhone: "Telefone",
+    preferencesSection: "Ibyifuzo",
+    language: "Ururimi",
+    languageDesc: "Hitamo ururimi ukoresha.",
+    currency: "Ifaranga",
+    saveChanges: "Bika Impinduka",
+    successMessage: "Impinduka zabitswe neza!",
+    english: "Icyongereza",
+    kinyarwanda: "Ikinyarwanda",
+  },
+
+  reportsBoard: {
+    subtitle: "Ohereza kandi usangire raporo z'imikorere ya koperative",
+    title: "Raporo",
+    downloadPdf: "Kuramo PDF",
+    downloadCsv: "Kuramo CSV",
+    shareReport: "↑ Sangira Raporo",
+    previewPdfTitle: "Reba mbere PDF",
+    previewPdfBody: "Aha hagaragaza incamake ya raporo mbere yo kuyikuramo.",
+    exportCsvTitle: "Ohereza CSV",
+    exportCsvBody: "Aha hagaragaza amakuru yo kohereza muri CSV.",
+    shareReportTitle: "Sangira Raporo",
+    shareReportBody: "Aha hagaragaza amakuru yo gusangira raporo.",
+    revenueTrend: "Ubwiyongere bw'Inyungu",
+    topSellingProducts: "Ibicuruzwa Bigurishwa Cyane",
+    bestBuyer: "Umushoramari mwiza",
+    topRevenue: "Inyungu nini",
+    activeBuyers: "Abashoramari bakora",
+    noBuyersYet: "Nta bashoramari baraboneka",
+    buyer: "Umushoramari",
+    location: "Aho aherereye",
+    orders: "Komande",
+    spend: "Ayakoreshejwe",
+    reliability: "Icyizere",
+    readyMessage: "iriteguye. Raporo yawe ubu ishobora gukurwamo nka PDF cyangwa CSV.",
+    pdfDownloaded: "Raporo ya PDF yakuwe.",
+    csvDownloaded: "Raporo ya CSV yakuwe.",
+    shareSheetOpened: "Aho gusangirira raporo hafunguye.",
+    shareCopied: "Incamake ya raporo yakuwe ku kibaho.",
+    shareUnavailable: "Gusangira ntibishoboka kuri iyi browser.",
+    shareFailed: "Ntibyashobotse gusangira raporo. Ongera ugerageze.",
   },
 };
 

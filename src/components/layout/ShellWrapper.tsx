@@ -12,6 +12,7 @@ const COOPERATIVE_ROUTES = [
   "/members",
   "/reports",
   "/cooperative",
+  "/settings",
   "/login",
   "/register",
   "/forgot-password",

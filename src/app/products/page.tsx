@@ -1,13 +1,14 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
-import { products, categories } from "@/data/products";
+import { products as staticProducts, categories } from "@/data/products";
+import { getPublishedCooperativeProducts } from "@/lib/publishedProducts";
 import SearchBar from "@/components/products/SearchBar";
 import CategoryFilter from "@/components/products/CategoryFilter";
 import ProductGrid from "@/components/products/ProductGrid";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
 import { useLanguage } from "@/lib/LanguageContext";
+import type { Product } from "@/data/products";
 
 const ITEMS_PER_PAGE = 8;
 
@@ -17,28 +18,59 @@ export default function ProductsPage() {
   const [category, setCategory] = useState("All Categories");
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Load published cooperative products from localStorage (client-side only)
+  const [coopProducts, setCoopProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    setCoopProducts(getPublishedCooperativeProducts());
+
+    // Re-sync when the dashboard publishes/unpublishes a product
+    function onStorage() {
+      setCoopProducts(getPublishedCooperativeProducts());
+    }
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
+
+  // Merge: cooperative products first, then static list.
+  // If a cooperative product is similar to a static product, we keep the cooperative's
+  // dynamic version and remove the static placeholder.
+  const allProducts = useMemo<Product[]>(() => {
+    const isSimilar = (name1: string, name2: string) => {
+      const n1 = name1.toLowerCase();
+      const n2 = name2.toLowerCase();
+      if (n1 === n2) return true;
+      if (n1.includes("tomato") && n2.includes("tomato")) return true;
+      if (n1.includes("cabbage") && n2.includes("cabbage")) return true;
+      if (n1.includes("potato") && n2.includes("potato")) return true;
+      if (n1.includes("bean") && n2.includes("bean")) return true;
+      if (n1.includes("maize") && n2.includes("maize")) return true;
+      return false;
+    };
+
+    // Filter out static products that have a similar counterpart in coopProducts
+    const filteredStatic = staticProducts.filter(
+      (sp) => !coopProducts.some((cp) => isSimilar(cp.name, sp.name))
+    );
+
+    return [...coopProducts, ...filteredStatic];
+  }, [coopProducts]);
+
   const filteredProducts = useMemo(() => {
     const query = search.trim().toLowerCase();
-
-    return products.filter((product) => {
+    return allProducts.filter((product) => {
       const matchesCategory =
-        category === "All Categories" ||
-        product.category === category;
-
+        category === "All Categories" || product.category === category;
       const matchesSearch =
         query === "" ||
         product.name.toLowerCase().includes(query) ||
         product.cooperative.name.toLowerCase().includes(query) ||
         product.district.toLowerCase().includes(query);
-
       return matchesCategory && matchesSearch;
     });
-  }, [search, category]);
+  }, [allProducts, search, category]);
 
-  // Reset to first page when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [search, category]);
+  useEffect(() => { setCurrentPage(1); }, [search, category]);
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
 
@@ -61,26 +93,22 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      {/* Filters + Products */}
+      {/* Filters + Grid */}
       <section className="mx-auto max-w-7xl px-6 py-10">
         <div className="mb-8 flex flex-col gap-4 md:flex-row">
           <SearchBar value={search} onChange={setSearch} />
-          <CategoryFilter
-            categories={categories}
-            value={category}
-            onChange={setCategory}
-          />
+          <CategoryFilter categories={categories} value={category} onChange={setCategory} />
         </div>
 
         <ProductGrid products={paginatedProducts} />
 
-        {/* Pagination Controls */}
+        {/* Pagination */}
         {totalPages > 1 && (
           <div className="mt-12 flex items-center justify-center gap-2">
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-50 disabled:hover:bg-white dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:disabled:hover:bg-gray-800"
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -104,7 +132,7 @@ export default function ProductsPage() {
             <button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-50 disabled:hover:bg-white dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:disabled:hover:bg-gray-800"
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
             >
               <ChevronRight className="h-5 w-5" />
             </button>

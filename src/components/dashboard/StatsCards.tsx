@@ -47,7 +47,7 @@ export default function StatsCards() {
     {
       label: t.dashboard.inventoryAvailable,
       value: `${totalInventory} kg`,
-      trend: "In stock",
+      trend: t.dashboard.trendInStock,
       trendUp: true,
       href: "/inventory",
       icon: (
@@ -61,7 +61,7 @@ export default function StatsCards() {
     {
       label: t.dashboard.newRequests,
       value: String(pendingRequests),
-      trend: `${pendingRequests} pending`,
+      trend: `${pendingRequests} ${t.dashboard.trendPending}`,
       trendUp: false,
       href: "/orders",
       icon: (
@@ -75,7 +75,7 @@ export default function StatsCards() {
     {
       label: t.dashboard.monthlyRevenueStat,
       value: formatRwf(totalRevenue),
-      trend: "Updated from buyers",
+      trend: t.dashboard.trendUpdatedFromBuyers,
       trendUp: true,
       href: "/reports",
       icon: (
@@ -90,7 +90,7 @@ export default function StatsCards() {
     {
       label: t.dashboard.pendingDeliveries,
       value: String(scheduledDeliveries),
-      trend: `${scheduledDeliveries} scheduled`,
+      trend: `${scheduledDeliveries} ${t.dashboard.trendScheduled}`,
       trendUp: true,
       href: "/orders",
       icon: (

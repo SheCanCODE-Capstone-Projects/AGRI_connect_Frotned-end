@@ -1,46 +1,49 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Heart } from "lucide-react";
-import type { Product, BadgeType } from "@/data/products";
+import { Star } from "lucide-react";
+import type { Product } from "@/data/products";
 import { useLanguage } from "@/lib/LanguageContext";
-
-
-
 
 export default function ProductCard({ product }: { product: Product }) {
   const { t } = useLanguage();
-  const productName = (t as { productNames?: Record<string, string> }).productNames?.[product.name] ?? product.name;
-  // Default values if data is missing
-  const rating = product.rating || 4.5;
-  const reviewsCount = product.reviewsCount || 100;
-  
+  const rating = product.rating ?? 4.5;
+  const reviewsCount = product.reviewsCount ?? 100;
+
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-gray-800 dark:bg-[#111811]">
-      {/* Product Image */}
-      <div className="relative h-48 w-full bg-gray-100 dark:bg-gray-800">
+    <div className="group overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-gray-800 dark:bg-[#111811]">
+      {/* Image */}
+      <div className="relative h-48 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
         <Image
           src={product.imageUrl}
           alt={product.name}
           fill
           sizes="(max-width: 768px) 100vw, 25vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
-
-        {/* Heart Placeholder */}
-        {/* <button className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg bg-white/80 text-gray-400 shadow-sm backdrop-blur-sm transition-colors hover:text-red-500 dark:bg-black/40">
-          <Heart className="h-4 w-4" />
-        </button> */}
       </div>
 
-      {/* Product Info */}
+      {/* Info */}
       <div className="p-4 pb-5">
+        {/* Cooperative name */}
         <p className="mb-1 text-xs font-semibold text-green-600 dark:text-green-500">
           {product.cooperative.name}
         </p>
 
+        {/* Product name */}
         <h3 className="mb-1 text-base font-bold text-gray-900 dark:text-white">
-          {productName}
+          {t.productNames?.[product.name] ?? product.name}
         </h3>
+
+        {/* Rating */}
+        <div className="mb-3 flex items-center gap-1">
+          <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
+          <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+            {rating.toFixed(1)}
+          </span>
+          <span className="text-xs text-gray-400 dark:text-gray-500">
+            ({reviewsCount})
+          </span>
+        </div>
 
         {/* Price & Action */}
         <div className="flex items-end justify-between">
@@ -55,7 +58,7 @@ export default function ProductCard({ product }: { product: Product }) {
             href={`/products/${product.id}`}
             className="rounded-full bg-green-500 px-4 py-1.5 text-xs font-bold text-white transition-colors hover:bg-green-600"
           >
-            {t.productGrid.viewDetails}
+            {t.productGrid?.viewDetails ?? "View Details"}
           </Link>
         </div>
       </div>

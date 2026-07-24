@@ -21,6 +21,7 @@ export type ProductItemType = {
   description: string;
   status: "Healthy" | "Low" | "Out";
   published: boolean;
+  imageUrl?: string; // base64 data URL from file upload
 };
 
 export type InventoryItem = {
@@ -44,7 +45,7 @@ export type Member = {
   color: string;
 };
 
-export type OrderStatus = "Delivered" | "Dispatched" | "Preparing";
+export type OrderStatus = "Delivered" | "Dispatched" | "Preparing" | "Accepted" | "Pending";
 
 export type OrderItem = {
   id: string;
@@ -77,6 +78,10 @@ type CooperativeDataContextValue = CooperativeDataState & {
   refreshInventoryItem: (name: string) => void;
   addMember: (member: Omit<Member, "id" | "color">) => void;
   setOrders: Dispatch<SetStateAction<OrderItem[]>>;
+  addOrder: (order: Omit<OrderItem, "id" | "steps" | "current" | "status">) => void;
+  deleteOrder: (id: string) => void;
+  advanceOrder: (id: string) => void;
+  reverseOrder: (id: string) => void;
 };
 
 const STORAGE_KEY = "agriconnect.cooperativeData";
@@ -233,6 +238,64 @@ export function CooperativeDataProvider({ children }: { children: React.ReactNod
           return [...current, { ...member, id, color: "bg-green-600" }];
         }),
       setOrders,
+      addOrder: ({ buyer, product, amount, date }) =>
+        setOrders((current) => {
+          const id = `ORD-${String(current.length + 1).padStart(3, "0")}`;
+          return [
+            ...current,
+            {
+              id,
+              buyer,
+              product,
+              amount,
+              date,
+              status: "Preparing",
+              steps: ["Pending", "Accepted", "Preparing", "Dispatched", "Delivered"],
+              current: 2, // starts at Preparing
+            },
+          ];
+        }),
+      deleteOrder: (id) =>
+        setOrders((current) => current.filter((o) => o.id !== id)),
+      advanceOrder: (id) =>
+        setOrders((current) =>
+          current.map((o) => {
+            if (o.id !== id) return o;
+            const next = Math.min(o.current + 1, o.steps.length - 1);
+            const statusMap: Record<number, OrderStatus> = {
+              0: "Pending",
+              1: "Accepted",
+              2: "Preparing",
+              3: "Dispatched",
+              4: "Delivered",
+            };
+            return {
+              ...o,
+              current: next,
+              status: (statusMap[next] ?? o.status) as OrderStatus,
+            };
+          })
+        ),
+      reverseOrder: (id) =>
+        setOrders((current) =>
+          current.map((o) => {
+            if (o.id !== id) return o;
+            // Allow reversing down to 'Pending' (index 0)
+            const next = Math.max(o.current - 1, 0);
+            const statusMap: Record<number, OrderStatus> = {
+              0: "Pending",
+              1: "Accepted",
+              2: "Preparing",
+              3: "Dispatched",
+              4: "Delivered",
+            };
+            return {
+              ...o,
+              current: next,
+              status: (statusMap[next] ?? o.status) as OrderStatus,
+            };
+          })
+        ),
     }),
     [buyers, products, inventory, members, orders]
   );
