@@ -42,7 +42,7 @@ export default function UsersBuyersBoard() {
     );
 
     return (
-        <div className="flex-1 min-w-0 p-8 text-zinc-100 text-sm">
+        <div className="flex-1 min-w-0 p-8  bg-green-950 text-zinc-100 text-sm">
             {/* Page header */}
             <div className="flex flex-wrap items-start justify-between gap-3 mb-6">
                 <div>

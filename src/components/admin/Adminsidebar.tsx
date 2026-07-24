@@ -24,7 +24,7 @@ export default function AdminSidebar() {
     const pathname = usePathname();
 
     return (
-        <div className="w-56 shrink-0 border-r border-zinc-900 bg-zinc-950 p-3.5 flex flex-col font-sans">
+        <div className="w-56 shrink-0 border-r border-green-900 bg-green-950 p-3.5 flex flex-col font-sans sticky top-0 h-screen overflow-y-auto">
             {/* Brand */}
             <div className="flex items-center gap-2.5 px-1.5 pb-4">
                 <div className="w-8 h-8 rounded-lg bg-orange-500/15 text-orange-500 flex items-center justify-center">
@@ -39,7 +39,7 @@ export default function AdminSidebar() {
             {/* Switch to Home */}
             <Link
                 href="/"
-                className="flex items-center gap-2 mb-4 px-3 py-2.5 rounded-lg border border-zinc-800 text-zinc-200 text-[13px] font-medium hover:bg-zinc-900 hover:border-zinc-700 hover:text-white transition-colors"
+                className="flex items-center gap-2 mb-4 px-3 py-2.5 rounded-lg border border-green-800 text-zinc-200 text-[13px] font-medium hover:bg-green-900 hover:border-green-700 hover:text-white transition-colors"
             >
                 <LogOut size={15} />
                 Switch to Home
@@ -59,7 +59,7 @@ export default function AdminSidebar() {
                             className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13.5px] transition-colors ${
                                 isActive
                                     ? "bg-orange-500 text-black font-semibold"
-                                    : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                                    : "text-zinc-400 hover:bg-green-900 hover:text-white"
                             }`}
                         >
                             <Icon size={16} />
@@ -70,7 +70,7 @@ export default function AdminSidebar() {
             </nav>
 
             {/* Admin profile footer */}
-            <div className="mt-auto pt-3.5 border-t border-zinc-900">
+            <div className="mt-auto pt-3.5 border-t border-green-900">
                 <div className="flex items-center gap-2.5 p-1.5">
                     <div className="w-8 h-8 rounded-full bg-orange-500 text-black flex items-center justify-center font-bold text-xs">
                         AD

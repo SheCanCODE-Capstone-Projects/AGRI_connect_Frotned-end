@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
     Building2,
     Users,
@@ -12,7 +13,9 @@ import {
     TrendingUp,
     MapPin,
     Clock,
+    Mail,
 } from "lucide-react";
+import Modal from "./Modal";
 
 const monthlyGMV = [
     { m: "Jan", v: 62 },
@@ -38,47 +41,41 @@ const districts = [
 ];
 
 const stats = [
-    {
-        label: "Registered Cooperatives",
-        value: "184",
-        delta: "+6 this month",
-        icon: Building2,
-        tone: "green",
-    },
-    {
-        label: "Farmer Members",
-        value: "2,417",
-        delta: "+128 this month",
-        icon: Users,
-        tone: "green",
-    },
-    {
-        label: "Active Buyers",
-        value: "312",
-        delta: "+21 this month",
-        icon: ShoppingBag,
-        tone: "green",
-    },
-    {
-        label: "GMV (YTD)",
-        value: "182.4M RWF",
-        delta: "+18.2% YoY",
-        icon: DollarSign,
-        tone: "orange",
-    },
+    { label: "Registered Cooperatives", value: "184", delta: "+6 this month", icon: Building2, tone: "green" },
+    { label: "Farmer Members", value: "2,417", delta: "+128 this month", icon: Users, tone: "green" },
+    { label: "Active Buyers", value: "312", delta: "+21 this month", icon: ShoppingBag, tone: "green" },
+    { label: "GMV (YTD)", value: "182.4M RWF", delta: "+18.2% YoY", icon: DollarSign, tone: "orange" },
 ];
 
-const approvals = [
-    { name: "Rulindo Coffee Coop", type: "Cooperative", place: "Rulindo", time: "2h ago", status: "RCA pending" },
-    { name: "Bugesera Dairy Union", type: "Cooperative", place: "Bugesera", time: "5h ago", status: "Docs review" },
-    { name: "Kigali Fresh Ltd", type: "Buyer", place: "Kigali", time: "1d ago", status: "KYC pending" },
-    { name: "Nyaruguru Grain Coop", type: "Cooperative", place: "Nyaruguru", time: "2d ago", status: "RCA pending" },
+type Approval = {
+    name: string;
+    type: string;
+    place: string;
+    time: string;
+    status: string;
+    approved: boolean;
+};
+
+const initialApprovals: Approval[] = [
+    { name: "Rulindo Coffee Coop", type: "Cooperative", place: "Rulindo", time: "2h ago", status: "RCA pending", approved: false },
+    { name: "Bugesera Dairy Union", type: "Cooperative", place: "Bugesera", time: "5h ago", status: "Docs review", approved: false },
+    { name: "Kigali Fresh Ltd", type: "Buyer", place: "Kigali", time: "1d ago", status: "KYC pending", approved: false },
+    { name: "Nyaruguru Grain Coop", type: "Cooperative", place: "Nyaruguru", time: "2d ago", status: "RCA pending", approved: false },
 ];
 
-const disputes = [
-    { id: "DSP-118", title: "Quality mismatch", parties: "Hotel Serena vs Rwamagana Farm", amount: "48,000 RWF", time: "3h ago" },
-    { id: "DSP-117", title: "Late delivery", parties: "Simba Supermarket vs Rubavu Highland", amount: "192,000 RWF", time: "1d ago" },
-    { id: "DSP-116", title: "Missing units", parties: "Kigali Fresh vs Musanze Coop", amount: "76,500 RWF", time: "2d ago" },
+type Dispute = {
+    id: string;
+    title: string;
+    parties: string;
+    amount: string;
+    time: string;
+    resolved: boolean;
+};
+
+const initialDisputes: Dispute[] = [
+    { id: "DSP-118", title: "Quality mismatch", parties: "Hotel Serena vs Rwamagana Farm", amount: "48,000 RWF", time: "3h ago", resolved: false },
+    { id: "DSP-117", title: "Late delivery", parties: "Simba Supermarket vs Rubavu Highland", amount: "192,000 RWF", time: "1d ago", resolved: false },
+    { id: "DSP-116", title: "Missing units", parties: "Kigali Fresh vs Musanze Coop", amount: "76,500 RWF", time: "2d ago", resolved: false },
 ];
 
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -90,10 +87,42 @@ function Card({ children, className = "" }: { children: React.ReactNode; classNa
 }
 
 export default function AgriConnectDashboard() {
+    const [approvals, setApprovals] = useState<Approval[]>(initialApprovals);
+    const [disputes, setDisputes] = useState<Dispute[]>(initialDisputes);
+
+    const [contactTarget, setContactTarget] = useState<Dispute | null>(null);
+    const [mediateTarget, setMediateTarget] = useState<Dispute | null>(null);
+    const [message, setMessage] = useState("");
+    const [sent, setSent] = useState(false);
+    const [mediationNote, setMediationNote] = useState("");
+
+    function handleApprove(name: string) {
+        setApprovals((prev) =>
+            prev.map((a) => (a.name === name ? { ...a, status: "Approved", approved: true } : a))
+        );
+    }
+
+    function handleSendMessage() {
+        setSent(true);
+        setTimeout(() => {
+            setContactTarget(null);
+            setMessage("");
+            setSent(false);
+        }, 1200);
+    }
+
+    function handleResolveDispute() {
+        if (!mediateTarget) return;
+        setDisputes((prev) =>
+            prev.map((d) => (d.id === mediateTarget.id ? { ...d, resolved: true } : d))
+        );
+        setMediateTarget(null);
+        setMediationNote("");
+    }
+
     return (
-        <div className="min-h-screen bg-black text-zinc-100 text-sm">
+        <div className="min-h-screen bg-green-950 text-zinc-100 text-sm">
             <div className="flex">
-                {/* Main content */}
                 <div className="flex-1 min-w-0 p-8">
                     {/* Page header */}
                     <div className="flex flex-wrap items-start justify-between gap-3 mb-6">
@@ -120,14 +149,11 @@ export default function AgriConnectDashboard() {
                         {stats.map(({ label, value, delta, icon: Icon, tone }) => (
                             <Card key={label}>
                                 <div className="flex items-start justify-between">
-                                    <span className="text-[11.5px] uppercase tracking-wide text-zinc-500">
-                                        {label}
-                                    </span>
+                                    <span className="text-[11.5px] uppercase tracking-wide text-zinc-500">{label}</span>
                                     <div
-                                        className={`w-8 h-8 rounded-lg flex items-center justify-center ${tone === "orange"
-                                            ? "bg-orange-500/15 text-orange-500"
-                                            : "bg-green-500/15 text-green-500"
-                                            }`}
+                                        className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                                            tone === "orange" ? "bg-orange-500/15 text-orange-500" : "bg-green-500/15 text-green-500"
+                                        }`}
                                     >
                                         <Icon size={16} />
                                     </div>
@@ -168,7 +194,6 @@ export default function AgriConnectDashboard() {
 
                         <Card>
                             <p className="text-[15.5px] font-bold m-0 mb-3.5">Platform Health</p>
-
                             <div className="flex items-center justify-between py-2.5 border-b border-zinc-800 text-[13px]">
                                 <span className="flex items-center gap-2 text-zinc-400">
                                     <CheckCircle2 size={14} className="text-green-500" /> Platform uptime
@@ -194,9 +219,7 @@ export default function AgriConnectDashboard() {
                                 <span className="font-semibold text-orange-500">3</span>
                             </div>
 
-                            <div className="text-[11px] uppercase tracking-wide text-zinc-500 mt-4 mb-2.5">
-                                Live Activity
-                            </div>
+                            <div className="text-[11px] uppercase tracking-wide text-zinc-500 mt-4 mb-2.5">Live Activity</div>
                             <div className="flex items-center gap-2 text-[12.5px] text-zinc-400 py-1">
                                 <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
                                 14 orders placed in the last hour
@@ -231,9 +254,7 @@ export default function AgriConnectDashboard() {
                                     <div className="min-w-0">
                                         <div className="font-semibold text-[13.5px] mb-1 truncate">{a.name}</div>
                                         <div className="flex items-center gap-2 text-[11.5px] text-zinc-500 flex-wrap">
-                                            <span className="bg-zinc-800 border border-zinc-700 px-2 py-0.5 rounded">
-                                                {a.type}
-                                            </span>
+                                            <span className="bg-zinc-800 border border-zinc-700 px-2 py-0.5 rounded">{a.type}</span>
                                             <span className="flex items-center gap-1">
                                                 <MapPin size={11} /> {a.place}
                                             </span>
@@ -243,11 +264,23 @@ export default function AgriConnectDashboard() {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2 shrink-0">
-                                        <span className="bg-orange-500/15 text-orange-500 text-[11.5px] font-semibold px-2.5 py-1 rounded-md whitespace-nowrap">
+                                        <span
+                                            className={`text-[11.5px] font-semibold px-2.5 py-1 rounded-md whitespace-nowrap ${
+                                                a.approved ? "bg-zinc-800 text-zinc-400" : "bg-orange-500/15 text-orange-500"
+                                            }`}
+                                        >
                                             {a.status}
                                         </span>
-                                        <button className="bg-green-500 text-black font-bold text-xs px-3.5 py-1.5 rounded-md whitespace-nowrap">
-                                            Approve
+                                        <button
+                                            disabled={a.approved}
+                                            onClick={() => handleApprove(a.name)}
+                                            className={`font-bold text-xs px-3.5 py-1.5 rounded-md whitespace-nowrap ${
+                                                a.approved
+                                                    ? "bg-zinc-800 text-zinc-500 cursor-not-allowed"
+                                                    : "bg-green-500 text-black hover:bg-green-400"
+                                            }`}
+                                        >
+                                            {a.approved ? "Approved" : "Approve"}
                                         </button>
                                     </div>
                                 </div>
@@ -276,13 +309,26 @@ export default function AgriConnectDashboard() {
                                         <div className="text-[13px] font-semibold">{d.amount}</div>
                                     </div>
                                     <div className="flex flex-col items-end gap-1.5 shrink-0">
-                                        <span className="text-[11.5px] text-zinc-500">{d.time}</span>
+                                        <span className="text-[11.5px] text-zinc-500">
+                                            {d.resolved ? "Resolved" : d.time}
+                                        </span>
                                         <div className="flex gap-2">
-                                            <button className="border border-zinc-700 text-zinc-300 text-xs px-3.5 py-1.5 rounded-md whitespace-nowrap">
+                                            <button
+                                                onClick={() => setContactTarget(d)}
+                                                className="border border-zinc-700 text-zinc-300 text-xs px-3.5 py-1.5 rounded-md whitespace-nowrap hover:bg-zinc-800"
+                                            >
                                                 Contact
                                             </button>
-                                            <button className="bg-zinc-100 text-black font-bold text-xs px-3.5 py-1.5 rounded-md whitespace-nowrap">
-                                                Mediate
+                                            <button
+                                                disabled={d.resolved}
+                                                onClick={() => setMediateTarget(d)}
+                                                className={`font-bold text-xs px-3.5 py-1.5 rounded-md whitespace-nowrap ${
+                                                    d.resolved
+                                                        ? "bg-zinc-800 text-zinc-500 cursor-not-allowed"
+                                                        : "bg-zinc-100 text-black hover:bg-white"
+                                                }`}
+                                            >
+                                                {d.resolved ? "Resolved" : "Mediate"}
                                             </button>
                                         </div>
                                     </div>
@@ -322,10 +368,7 @@ export default function AgriConnectDashboard() {
                                 <span>{d.gmv}</span>
                                 <span className="flex items-center gap-2.5">
                                     <span className="bg-zinc-800 rounded h-1.5 w-full max-w-[120px]">
-                                        <span
-                                            className="block bg-green-500 h-1.5 rounded"
-                                            style={{ width: `${d.share * 3}%` }}
-                                        />
+                                        <span className="block bg-green-500 h-1.5 rounded" style={{ width: `${d.share * 3}%` }} />
                                     </span>
                                     <span className="text-zinc-400 text-xs w-9">{d.share}%</span>
                                 </span>
@@ -334,6 +377,65 @@ export default function AgriConnectDashboard() {
                     </Card>
                 </div>
             </div>
+
+            {/* Contact modal */}
+            <Modal open={!!contactTarget} onClose={() => setContactTarget(null)} title={`Contact — ${contactTarget?.parties ?? ""}`}>
+                {sent ? (
+                    <div className="flex items-center gap-2 text-green-500 text-sm py-4">
+                        <CheckCircle2 size={16} /> Message sent.
+                    </div>
+                ) : (
+                    <>
+                        <p className="text-xs text-zinc-500 mb-3">
+                            Send a message to both parties regarding {contactTarget?.id} · {contactTarget?.title}.
+                        </p>
+                        <textarea
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            rows={4}
+                            placeholder="Type your message..."
+                            className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-[13px] text-zinc-100 outline-none focus:border-green-500 mb-4"
+                        />
+                        <div className="flex justify-end gap-2">
+                            <button onClick={() => setContactTarget(null)} className="text-xs text-zinc-400 px-3.5 py-2 hover:text-white">
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleSendMessage}
+                                disabled={!message.trim()}
+                                className="flex items-center gap-1.5 bg-green-500 text-black font-bold text-xs px-4 py-2 rounded-md disabled:opacity-40"
+                            >
+                                <Mail size={13} /> Send message
+                            </button>
+                        </div>
+                    </>
+                )}
+            </Modal>
+
+            {/* Mediate modal */}
+            <Modal open={!!mediateTarget} onClose={() => setMediateTarget(null)} title={`Mediate — ${mediateTarget?.id ?? ""}`}>
+                <p className="text-xs text-zinc-500 mb-1">{mediateTarget?.title}</p>
+                <p className="text-[13px] text-zinc-300 mb-3">{mediateTarget?.parties}</p>
+                <textarea
+                    value={mediationNote}
+                    onChange={(e) => setMediationNote(e.target.value)}
+                    rows={4}
+                    placeholder="Resolution notes..."
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-[13px] text-zinc-100 outline-none focus:border-green-500 mb-4"
+                />
+                <div className="flex justify-end gap-2">
+                    <button onClick={() => setMediateTarget(null)} className="text-xs text-zinc-400 px-3.5 py-2 hover:text-white">
+                        Cancel
+                    </button>
+                    <button
+                        onClick={handleResolveDispute}
+                        disabled={!mediationNote.trim()}
+                        className="bg-green-500 text-black font-bold text-xs px-4 py-2 rounded-md disabled:opacity-40"
+                    >
+                        Mark as resolved
+                    </button>
+                </div>
+            </Modal>
         </div>
     );
 }

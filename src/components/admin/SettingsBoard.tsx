@@ -1,33 +1,58 @@
 "use client";
 
-import { useState, type ComponentPropsWithoutRef } from "react";
-import { Save, Globe, Bell, Percent } from "lucide-react";
+import { useState } from "react";
+import { Save, Globe, Bell, Percent, CheckCircle2, Loader2 } from "lucide-react";
+import Card from "./Card";
 
-function Card({ className = "", ...props }: ComponentPropsWithoutRef<"div">) {
-    return (
-        <div
-            className={`rounded-3xl border border-zinc-800 bg-zinc-950 p-5 ${className}`}
-            {...props}
-        />
-    );
-}
+type SaveState = "idle" | "saving" | "saved";
 
 export default function SettingsBoard() {
     const [platformFee, setPlatformFee] = useState("3.5");
     const [smsAlerts, setSmsAlerts] = useState(true);
     const [autoApprove, setAutoApprove] = useState(false);
+    const [currency, setCurrency] = useState("RWF — Rwandan Franc");
+    const [language, setLanguage] = useState("English");
+
+    const [saveState, setSaveState] = useState<SaveState>("idle");
+    const [savedSnapshot, setSavedSnapshot] = useState<string | null>(null);
+
+    function handleSave() {
+        setSaveState("saving");
+
+        // Simulates a persistence call. Replace this block with a real
+        // API request (e.g. fetch("/api/admin/settings", { method: "POST", ... }))
+        // once a backend endpoint exists.
+        const payload = { platformFee, smsAlerts, autoApprove, currency, language };
+
+        setTimeout(() => {
+            setSavedSnapshot(JSON.stringify(payload));
+            setSaveState("saved");
+            setTimeout(() => setSaveState("idle"), 2000);
+        }, 800);
+    }
 
     return (
-        <div className="flex-1 min-w-0 p-8 text-zinc-100 text-sm">
+        <div className="flex-1 min-w-0 p-8 bg-green-950 text-zinc-100 text-sm">
             <div className="flex flex-wrap items-start justify-between gap-3 mb-6">
                 <div>
-                    <h1 className="text-2xl font-bold m-0 font-display">Platform Settings</h1>
+                    <h1 className="text-2xl font-bold m-0">Platform Settings</h1>
                     <p className="text-zinc-400 text-[13.5px] m-0 mt-1">
                         Configure platform-wide fees, notifications, and defaults
                     </p>
                 </div>
-                <button className="flex items-center gap-2 bg-green-500 text-black font-bold text-xs px-4 py-2 rounded-lg">
-                    <Save size={14} /> Save changes
+                <button
+                    onClick={handleSave}
+                    disabled={saveState === "saving"}
+                    className={`flex items-center gap-2 font-bold text-xs px-4 py-2 rounded-lg transition-colors ${
+                        saveState === "saved"
+                            ? "bg-green-500 text-black"
+                            : "bg-green-500 text-black hover:bg-green-400 disabled:opacity-60"
+                    }`}
+                >
+                    {saveState === "saving" && <Loader2 size={14} className="animate-spin" />}
+                    {saveState === "saved" && <CheckCircle2 size={14} />}
+                    {saveState === "idle" && <Save size={14} />}
+                    {saveState === "saving" ? "Saving..." : saveState === "saved" ? "Saved" : "Save changes"}
                 </button>
             </div>
 
@@ -37,9 +62,7 @@ export default function SettingsBoard() {
                         <Percent size={16} className="text-orange-500" />
                         <p className="text-[15.5px] font-bold m-0">Marketplace Fees</p>
                     </div>
-                    <label className="block text-[12.5px] text-zinc-400 mb-1.5">
-                        Platform commission (%)
-                    </label>
+                    <label className="block text-[12.5px] text-zinc-400 mb-1.5">Platform commission (%)</label>
                     <input
                         value={platformFee}
                         onChange={(e) => setPlatformFee(e.target.value)}
@@ -95,14 +118,22 @@ export default function SettingsBoard() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-[12.5px] text-zinc-400 mb-1.5">Default currency</label>
-                            <select className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-[13.5px] text-zinc-100 outline-none focus:border-green-500">
+                            <select
+                                value={currency}
+                                onChange={(e) => setCurrency(e.target.value)}
+                                className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-[13.5px] text-zinc-100 outline-none focus:border-green-500"
+                            >
                                 <option>RWF — Rwandan Franc</option>
                                 <option>USD — US Dollar</option>
                             </select>
                         </div>
                         <div>
                             <label className="block text-[12.5px] text-zinc-400 mb-1.5">Default language</label>
-                            <select className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-[13.5px] text-zinc-100 outline-none focus:border-green-500">
+                            <select
+                                value={language}
+                                onChange={(e) => setLanguage(e.target.value)}
+                                className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-[13.5px] text-zinc-100 outline-none focus:border-green-500"
+                            >
                                 <option>English</option>
                                 <option>Kinyarwanda</option>
                                 <option>Français</option>
@@ -111,6 +142,12 @@ export default function SettingsBoard() {
                     </div>
                 </Card>
             </div>
+
+            {savedSnapshot && saveState === "idle" && (
+                <p className="text-[11.5px] text-zinc-600 mt-4">
+                    Last saved settings are active. Changing a field again will require pressing “Save changes” once more.
+                </p>
+            )}
         </div>
     );
 }
