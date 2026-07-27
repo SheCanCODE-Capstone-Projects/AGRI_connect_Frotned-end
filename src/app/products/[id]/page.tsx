@@ -43,20 +43,20 @@ export default function ProductDetailPage() {
   const displayName = t.productNames?.[product.name] ?? product.name;
 
   return (
-    <main className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <main className="min-h-screen bg-gray-50 dark:bg-[#081F14]">
       <div className="mx-auto max-w-5xl px-6 py-10">
         <Link
           href="/products"
-          className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-gray-500 transition hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400"
+          className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-gray-500 transition hover:text-green-600 dark:text-green-100/50 dark:hover:text-green-400"
         >
           <ArrowLeft className="h-4 w-4" />
           {t.productDetail.backToProducts}
         </Link>
 
-        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm dark:border-gray-800 dark:bg-[#111811]">
+        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm dark:border-[#1f3d29] dark:bg-[#112d1a]">
           <div className="grid md:grid-cols-2">
             {/* Image */}
-            <div className="relative h-72 w-full md:h-full min-h-72 bg-gray-100 dark:bg-gray-800">
+            <div className="relative h-72 w-full md:h-full min-h-72 bg-gray-100 dark:bg-[#0d2818]">
               <Image
                 src={product.imageUrl}
                 alt={displayName}
@@ -70,28 +70,28 @@ export default function ProductDetailPage() {
 
             {/* Details */}
             <div className="p-8">
-              <p className="mb-1 text-sm font-semibold text-green-600 dark:text-green-500">
+              <p className="mb-1 text-sm font-semibold text-green-600 dark:text-green-400">
                 {product.cooperative.name}
               </p>
               <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white">
                 {displayName}
               </h1>
-              <p className="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+              <p className="mb-6 text-sm leading-relaxed text-gray-600 dark:text-green-100/60">
                 {product.description}
               </p>
 
               {/* Price */}
-              <div className="mb-6 rounded-xl bg-green-50 px-5 py-4 dark:bg-green-950/30">
+              <div className="mb-6 rounded-xl bg-green-50 px-5 py-4 dark:bg-green-500/10 dark:border dark:border-green-500/20">
                 <p className="text-3xl font-extrabold text-green-700 dark:text-green-400">
                   {product.unitPrice.toLocaleString()}{" "}
-                  <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                  <span className="text-sm font-medium text-gray-500 dark:text-green-100/50">
                     RWF / {product.unit}
                   </span>
                 </p>
               </div>
 
               {/* Meta */}
-              <ul className="mb-6 space-y-3 text-sm text-gray-600 dark:text-gray-400">
+              <ul className="mb-6 space-y-3 text-sm text-gray-600 dark:text-green-100/60">
                 <li className="flex items-center gap-2">
                   <Package className="h-4 w-4 text-green-500" />
                   <span>
@@ -116,12 +116,12 @@ export default function ProductDetailPage() {
               </ul>
 
               {/* Cooperative */}
-              <div className="rounded-xl border border-gray-100 p-4 dark:border-gray-700">
-                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
+              <div className="rounded-xl border border-gray-100 p-4 dark:border-[#1f3d29] dark:bg-[#0d2818]">
+                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-green-100/40">
                   {t.productDetail.contactCooperative}
                 </p>
                 <p className="mb-1 font-semibold text-gray-900 dark:text-white">{product.cooperative.name}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{product.cooperative.address}</p>
+                <p className="text-xs text-gray-500 dark:text-green-100/50">{product.cooperative.address}</p>
                 <div className="mt-3 flex flex-col gap-1.5">
                   <a href={`tel:${product.cooperative.phone}`} className="flex items-center gap-2 text-sm text-green-600 hover:underline dark:text-green-400">
                     <Phone className="h-3.5 w-3.5" />{product.cooperative.phone}
