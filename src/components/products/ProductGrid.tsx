@@ -6,7 +6,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
   const { t } = useLanguage();
   if (products.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-gray-300 py-16 text-center text-gray-500">
+      <div className="rounded-xl border border-dashed border-gray-300 py-16 text-center text-gray-500 dark:border-[#1f3d29] dark:text-green-100/40">
         {t.productGrid.noProducts}
       </div>
     );

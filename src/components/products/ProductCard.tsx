@@ -10,9 +10,9 @@ export default function ProductCard({ product }: { product: Product }) {
   const reviewsCount = product.reviewsCount ?? 100;
 
   return (
-    <div className="group overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-gray-800 dark:bg-[#111811]">
+    <div className="group overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-[#1f3d29] dark:bg-[#112d1a]">
       {/* Image */}
-      <div className="relative h-48 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
+      <div className="relative h-48 w-full overflow-hidden bg-gray-100 dark:bg-[#0d2818]">
         <Image
           src={product.imageUrl}
           alt={product.name}
@@ -25,7 +25,7 @@ export default function ProductCard({ product }: { product: Product }) {
       {/* Info */}
       <div className="p-4 pb-5">
         {/* Cooperative name */}
-        <p className="mb-1 text-xs font-semibold text-green-600 dark:text-green-500">
+        <p className="mb-1 text-xs font-semibold text-green-600 dark:text-green-400">
           {product.cooperative.name}
         </p>
 
@@ -37,26 +37,26 @@ export default function ProductCard({ product }: { product: Product }) {
         {/* Rating */}
         <div className="mb-3 flex items-center gap-1">
           <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
-          <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+          <span className="text-xs font-semibold text-gray-700 dark:text-green-100/70">
             {rating.toFixed(1)}
           </span>
-          <span className="text-xs text-gray-400 dark:text-gray-500">
+          <span className="text-xs text-gray-400 dark:text-green-100/40">
             ({reviewsCount})
           </span>
         </div>
 
         {/* Price & Action */}
         <div className="flex items-end justify-between">
-          <p className="text-xl font-bold text-green-700 dark:text-green-500">
+          <p className="text-xl font-bold text-green-700 dark:text-green-400">
             {product.unitPrice.toLocaleString()}{" "}
-            <span className="text-[11px] font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <span className="text-[11px] font-medium uppercase tracking-wider text-gray-500 dark:text-green-100/50">
               RWF/{product.unit}
             </span>
           </p>
 
           <Link
             href={`/products/${product.id}`}
-            className="rounded-full bg-green-500 px-4 py-1.5 text-xs font-bold text-white transition-colors hover:bg-green-600"
+            className="rounded-full bg-green-600 px-4 py-1.5 text-xs font-bold text-white transition-colors hover:bg-green-500"
           >
             {t.productGrid?.viewDetails ?? "View Details"}
           </Link>
