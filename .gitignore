@@ -24,7 +24,6 @@ yarn-error.log*
 
 # Local env files
 .env*.local
-.env
 
 # Vercel
 .vercel
@@ -34,13 +33,10 @@ yarn-error.log*
 next-env.d.ts
 
 # IDE
-.vscode/
 .idea/
 *.swp
 *.swo
 
 # OS
 Thumbs.db
-branch_structure.json
-temp_auto_push.bat
-temp_interactive_push.bat
+config.bat
