@@ -1,0 +1,33 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "Testing",
+    "feature-hero",
+    "khadette-products",
+    "lily-auth",
+    "main",
+    "marlene-dashboard-management",
+    "origin",
+    "umutoni-sidebar"
+  ],
+  "parent": {
+    "Testing": "main",
+    "feature-hero": "main",
+    "khadette-products": "main",
+    "lily-auth": "main",
+    "main": null,
+    "marlene-dashboard-management": "main",
+    "origin": "main",
+    "umutoni-sidebar": "main"
+  },
+  "order": [
+    "main",
+    "Testing",
+    "feature-hero",
+    "khadette-products",
+    "lily-auth",
+    "marlene-dashboard-management",
+    "origin",
+    "umutoni-sidebar"
+  ]
+}
